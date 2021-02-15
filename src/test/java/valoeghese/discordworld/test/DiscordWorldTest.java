@@ -8,13 +8,12 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.requests.GatewayIntent;
 import valoeghese.discordworld.Bootstrap;
 import valoeghese.discordworld.World;
 
 public class DiscordWorldTest extends ListenerAdapter {
 	public static void main(String[] args) {
-		Bootstrap.start(properties -> new DiscordWorldTest(), Arrays.asList(GatewayIntent.GUILD_MEMBERS));
+		Bootstrap.start(properties -> new DiscordWorldTest(), Arrays.asList());
 	}
 
 	private World world;
