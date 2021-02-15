@@ -1,10 +1,10 @@
 package valoeghese.discordworld.test;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.UncheckedIOException;
 
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.GuildChannel;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -30,6 +30,13 @@ public class DiscordWorldTest extends ListenerAdapter {
 				File file = new File("./guild.dat.zfg");
 				file.createNewFile();
 				this.world = new World(event.getGuild(), 3, 3, 4, 4, file);
+
+				for (Member member : event.getGuild().getMembers()) {
+					if (!member.hasPermission(Permission.ADMINISTRATOR)) {
+						this.world.setPosition(2, 3, member, false);
+					}
+				}
+
 			} catch (Exception e) {
 				try {
 					event.getChannel().sendMessage(e.getMessage()).queue();
@@ -37,7 +44,7 @@ public class DiscordWorldTest extends ListenerAdapter {
 				}
 				throw new RuntimeException(e);
 			}
-			
+
 			try {
 				event.getChannel().sendMessage("Finished Starting").queue();
 			} catch (Throwable t) {
