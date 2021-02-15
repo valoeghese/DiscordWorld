@@ -1,0 +1,13 @@
+plugins {
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    api "net.dv8tion:JDA:4.2.0_168"
+	implementation "it.unimi.dsi:fastutil:8.3.1"
+}
