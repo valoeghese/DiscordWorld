@@ -5,9 +5,11 @@ plugins {
 repositories {
     mavenCentral()
     jcenter()
+    maven { url = 'https://maven.modmuss50.me/'}
 }
 
 dependencies {
     api "net.dv8tion:JDA:4.2.0_168"
 	implementation "it.unimi.dsi:fastutil:8.3.1"
+	implementation 'tk.valoeghese:ZoesteriaConfig:1.3.6'
 }
