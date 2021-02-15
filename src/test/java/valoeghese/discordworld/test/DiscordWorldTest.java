@@ -69,8 +69,6 @@ public class DiscordWorldTest extends ListenerAdapter {
 				event.getChannel().sendMessage("Finished Resetting").queue();
 			} catch (Throwable t) {
 			}
-		} else if (event.getMember().getRoles().stream().anyMatch(role -> role.getName().startsWith("sx"))) {
-			this.world.setPosition(2, 3, event.getMember(), false);
 		}
 	}
 }
