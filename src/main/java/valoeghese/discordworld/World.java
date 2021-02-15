@@ -20,8 +20,8 @@ public class World {
 				.addContainer("size", c -> c.addDataEntry("rootWidth", rootWidth).addDataEntry("rootHeight", rootHeight))
 				.build());
 
-		this.rootWidth = this.worldData.getIntegerValue("rootWidth");
-		this.rootHeight = this.worldData.getIntegerValue("rootHeight");
+		this.rootWidth = this.worldData.getIntegerValue("size.rootWidth");
+		this.rootHeight = this.worldData.getIntegerValue("size.rootHeight");
 		this.width = this.rootWidth * this.rootWidth;
 		this.height = this.rootHeight * this.rootHeight;
 
