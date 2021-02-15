@@ -15,15 +15,23 @@ import tk.valoeghese.zoesteriaconfig.api.container.WritableConfig;
 import tk.valoeghese.zoesteriaconfig.api.template.ConfigTemplate;
 
 public class World {
-	public World(Guild guild, int rootWidth, int rootHeight, File file) {
+	public World(Guild guild, int megaW, int megaH, int smallW, int smallH, File file) {
+		if (megaH * megaH * megaW * megaW > 500) {
+			throw new RuntimeException("The given size would exceed the channel limit!");
+		}
+
 		this.worldData = ZoesteriaConfig.loadConfigWithDefaults(file, ConfigTemplate.builder()
-				.addContainer("size", c -> c.addDataEntry("rootWidth", rootWidth).addDataEntry("rootHeight", rootHeight))
+				.addContainer("size", c -> c
+						.addDataEntry("megaW", megaW)
+						.addDataEntry("megaH", megaH)
+						.addDataEntry("smallW", smallW)
+						.addDataEntry("smallH", smallH))
 				.build());
 
-		this.rootWidth = this.worldData.getIntegerValue("size.rootWidth");
-		this.rootHeight = this.worldData.getIntegerValue("size.rootHeight");
-		this.width = this.rootWidth * this.rootWidth;
-		this.height = this.rootHeight * this.rootHeight;
+		this.smallW = this.worldData.getIntegerValue("size.smallW");
+		this.smallH = this.worldData.getIntegerValue("size.smallH");
+		this.width = this.smallW * this.worldData.getIntegerValue("size.megaW");
+		this.height = this.smallH * this.worldData.getIntegerValue("size.megaH");
 
 		if (!this.worldData.containsKey("roles")) {
 			EditableContainer roles = ZoesteriaConfig.createWritableConfig(new LinkedHashMap<>());
@@ -31,39 +39,39 @@ public class World {
 			List<Role> roleList = new ArrayList<>();
 
 			// generate roles
-			for (int lx = 0; lx < this.rootWidth; ++lx) { // large x
+			for (int lx = 0; lx < megaW; ++lx) { // large x
 				String name = "lx" + lx;
 				roleList.add(createRole(guild, name, roles));
 			}
 			
-			for (int ly = 0; ly < this.rootHeight; ++ly) { // large y
+			for (int ly = 0; ly < megaH; ++ly) { // large y
 				String name = "ly" + ly;
 				roleList.add(createRole(guild, name, roles));
 			}
 			
-			for (int sx = 0; sx < this.rootWidth; ++sx) { // small x
+			for (int sx = 0; sx < this.smallW; ++sx) { // small x
 				String name = "sx" + sx;
 				roleList.add(createRole(guild, name, roles));
 			}
 			
-			for (int sy = 0; sy < this.rootHeight; ++sy) { // small y
+			for (int sy = 0; sy < this.smallH; ++sy) { // small y
 				String name = "sy" + sy;
 				roleList.add(createRole(guild, name, roles));
 			}
 
 			// generate channels
-			for (int lx = 0; lx < this.rootWidth; ++lx) { // large x
+			for (int lx = 0; lx < megaW; ++lx) { // large x
 				String lxn = "lx" + lx;
 	
-				for (int ly = 0; ly < this.rootHeight; ++ly) { // large y
+				for (int ly = 0; ly < megaH; ++ly) { // large y
 					String lyn = "ly" + ly;
 
-					for (int sx = 0; sx < this.rootWidth; ++sx) { // small x
-						final int x = lx * this.rootWidth + sx;
+					for (int sx = 0; sx < this.smallW; ++sx) { // small x
+						final int x = lx * this.smallW + sx;
 						String sxn = "sx" + sx;
 
-						for (int sy = 0; sy < this.rootHeight; ++sy) { // small y
-							final int y = ly * this.rootHeight + sy;
+						for (int sy = 0; sy < this.smallH; ++sy) { // small y
+							final int y = ly * this.smallH + sy;
 							String syn = "sy" + sy;
 
 							String channelName = "x" + x + "-y" + y;
@@ -88,7 +96,7 @@ public class World {
 	}
 
 	private final WritableConfig worldData;
-	private final int rootWidth, rootHeight;
+	private final int smallW, smallH;
 	private final int width, height;
 
 	private static Role createRole(Guild guild, String name, EditableContainer storage) {

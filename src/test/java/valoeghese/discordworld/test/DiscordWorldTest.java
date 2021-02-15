@@ -29,13 +29,13 @@ public class DiscordWorldTest extends ListenerAdapter {
 			try {
 				File file = new File("./guild.dat.zfg");
 				file.createNewFile();
-				this.world = new World(event.getGuild(), 2, 2, file);
-			} catch (IOException e) {
+				this.world = new World(event.getGuild(), 5, 5, file);
+			} catch (Exception e) {
 				try {
 					event.getChannel().sendMessage(e.getMessage()).queue();
 				} catch (Throwable t) {
 				}
-				throw new UncheckedIOException(e);
+				throw new RuntimeException(e);
 			}
 			
 			try {
