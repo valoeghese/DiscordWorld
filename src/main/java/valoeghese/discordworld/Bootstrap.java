@@ -2,11 +2,11 @@ package valoeghese.discordworld;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.EventListener;
 import java.util.Properties;
 import java.util.function.Function;
 
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.hooks.EventListener;
 
 public class Bootstrap {
 	public static void start(Function<Properties, EventListener> listener) {
