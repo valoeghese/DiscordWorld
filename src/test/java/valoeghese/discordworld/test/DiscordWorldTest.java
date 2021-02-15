@@ -1,6 +1,7 @@
 package valoeghese.discordworld.test;
 
 import java.io.File;
+import java.util.Arrays;
 
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.GuildChannel;
@@ -8,12 +9,13 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 import valoeghese.discordworld.Bootstrap;
 import valoeghese.discordworld.World;
 
 public class DiscordWorldTest extends ListenerAdapter {
 	public static void main(String[] args) {
-		Bootstrap.start(properties -> new DiscordWorldTest());
+		Bootstrap.start(properties -> new DiscordWorldTest(), Arrays.asList(GatewayIntent.GUILD_MEMBERS));
 	}
 
 	private World world;
@@ -31,7 +33,7 @@ public class DiscordWorldTest extends ListenerAdapter {
 				file.createNewFile();
 				this.world = new World(event.getGuild(), 3, 3, 4, 4, file);
 
-				for (Member member : event.getGuild().getMembers()) {
+				for (Member member : event.getGuild().loadMembers().get()) {
 					if (!member.hasPermission(Permission.ADMINISTRATOR)) {
 						this.world.setPosition(2, 3, member, false);
 					}

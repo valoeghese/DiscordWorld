@@ -105,7 +105,8 @@ public class World {
 	private final Role unlocated;
 
 	public void setPosition(int x, int y, Member member, boolean unlocateTemporarily) {
-		if (x > 0 && y > 0 && x < width && y < width) {
+		System.out.println(this.width);
+		if (x > 0 && y > 0 && x < this.width && y < this.height) {
 			Guild guild = member.getGuild();
 
 			// set unlocated
