@@ -29,7 +29,7 @@ public class DiscordWorldTest extends ListenerAdapter {
 			try {
 				File file = new File("./guild.dat.zfg");
 				file.createNewFile();
-				this.world = new World(event.getGuild(), 5, 5, file);
+				this.world = new World(event.getGuild(), 3, 3, 5, 5, file);
 			} catch (Exception e) {
 				try {
 					event.getChannel().sendMessage(e.getMessage()).queue();

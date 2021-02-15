@@ -16,7 +16,7 @@ import tk.valoeghese.zoesteriaconfig.api.template.ConfigTemplate;
 
 public class World {
 	public World(Guild guild, int megaW, int megaH, int smallW, int smallH, File file) {
-		if (megaH * megaH * megaW * megaW > 500) {
+		if (smallH * megaH * smallW * megaW > 500) {
 			throw new RuntimeException("The given size would exceed the channel limit!");
 		}
 
