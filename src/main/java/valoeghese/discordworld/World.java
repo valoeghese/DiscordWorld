@@ -31,38 +31,38 @@ public class World {
 			List<Role> roleList = new ArrayList<>();
 
 			// generate roles
-			for (int lx = 0; lx <= this.rootWidth; ++lx) { // large x
+			for (int lx = 0; lx < this.rootWidth; ++lx) { // large x
 				String name = "lx" + lx;
 				roleList.add(createRole(guild, name, roles));
 			}
 			
-			for (int ly = 0; ly <= this.rootHeight; ++ly) { // large y
+			for (int ly = 0; ly < this.rootHeight; ++ly) { // large y
 				String name = "ly" + ly;
 				roleList.add(createRole(guild, name, roles));
 			}
 			
-			for (int sx = 0; sx <= this.rootWidth; ++sx) { // small x
+			for (int sx = 0; sx < this.rootWidth; ++sx) { // small x
 				String name = "sx" + sx;
 				roleList.add(createRole(guild, name, roles));
 			}
 			
-			for (int sy = 0; sy <= this.rootHeight; ++sy) { // small y
+			for (int sy = 0; sy < this.rootHeight; ++sy) { // small y
 				String name = "sy" + sy;
 				roleList.add(createRole(guild, name, roles));
 			}
 
 			// generate channels
-			for (int lx = 0; lx <= this.rootWidth; ++lx) { // large x
+			for (int lx = 0; lx < this.rootWidth; ++lx) { // large x
 				String lxn = "lx" + lx;
 	
-				for (int ly = 0; ly <= this.rootHeight; ++ly) { // large y
+				for (int ly = 0; ly < this.rootHeight; ++ly) { // large y
 					String lyn = "ly" + ly;
 
-					for (int sx = 0; sx <= this.rootWidth; ++sx) { // small x
+					for (int sx = 0; sx < this.rootWidth; ++sx) { // small x
 						final int x = lx * this.rootWidth + sx;
 						String sxn = "sx" + sx;
 
-						for (int sy = 0; sy <= this.rootHeight; ++sy) { // small y
+						for (int sy = 0; sy < this.rootHeight; ++sy) { // small y
 							final int y = ly * this.rootHeight + sy;
 							String syn = "sy" + sy;
 
