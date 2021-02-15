@@ -1,11 +1,9 @@
 package valoeghese.discordworld.test;
 
 import java.io.File;
-import java.util.Arrays;
 
 import net.dv8tion.jda.api.entities.GuildChannel;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import valoeghese.discordworld.Bootstrap;
@@ -13,18 +11,17 @@ import valoeghese.discordworld.World;
 
 public class DiscordWorldTest extends ListenerAdapter {
 	public static void main(String[] args) {
-		Bootstrap.start(properties -> new DiscordWorldTest(), Arrays.asList());
+		Bootstrap.start(properties -> new DiscordWorldTest(), null);
 	}
 
 	private World world;
 
 	@Override
-	public void onGuildMemberJoin(GuildMemberJoinEvent event) {
-		this.world.setPosition(2, 3, event.getMember(), false);
-	}
-
-	@Override
 	public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+		if (event.getMember() == null) {
+			return;
+		}
+
 		if (event.getMessage().getContentRaw().equals("start")) {
 			try {
 				event.getChannel().sendMessage("Starting").queue();
@@ -72,6 +69,8 @@ public class DiscordWorldTest extends ListenerAdapter {
 				event.getChannel().sendMessage("Finished Resetting").queue();
 			} catch (Throwable t) {
 			}
+		} else if (event.getMember().getRoles().stream().anyMatch(role -> role.getName().startsWith("sx"))) {
+			this.world.setPosition(2, 3, event.getMember(), false);
 		}
 	}
 }

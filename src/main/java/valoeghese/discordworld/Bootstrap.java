@@ -13,15 +13,15 @@ import net.dv8tion.jda.api.hooks.EventListener;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
 public class Bootstrap {
-	public static void start(Function<Properties, EventListener> listener, @Nullable Collection<GatewayIntent> enableAdditionally) {
+	public static void start(Function<Properties, EventListener> listener, @Nullable Collection<GatewayIntent> enable) {
 		// bootstrap JDA
 		try (FileInputStream fis = new FileInputStream(new File("./properties.txt"))) {
 			Properties p = new Properties();
 			p.load(fis);
 			JDABuilder builder = JDABuilder.createDefault(p.getProperty("key"));
 
-			if (enableAdditionally != null) {
-				builder.enableIntents(enableAdditionally);
+			if (enable != null) {
+				builder.enableIntents(enable);
 			}
 
 			builder.addEventListeners(listener.apply(p)).build();
